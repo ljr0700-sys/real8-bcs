@@ -1,1 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Real8 Platform</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body style="background-color: #121212; color: white; text-align: center; padding-top: 100px;">
+    <h1>Real8 플랫폼</h1>
+    <button onclick="login()" style="padding: 15px 30px; cursor: pointer; font-weight: bold; font-size: 18px;">Google 로그인</button>
 
+    <script>
+        const config = {
+            apiKey: "AIzaSyDPDh41Coju7dojq3ATISTxJDIiypx8eA0",
+            authDomain: "real8-platform-8527b.firebaseapp.com",
+            projectId: "real8-platform-8527b",
+            storageBucket: "real8-platform-8527b.appspot.com",
+            messagingSenderId: "268345819156",
+            appId: "1:268345819156:web:b017ad50d8d4e06f029001"
+        };
+        firebase.initializeApp(config);
+
+        function login() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((res) => {
+                    alert(res.user.displayName + "님, 드디어 성공입니다!");
+                })
+                .catch((err) => {
+                    alert("오류: " + err.message);
+                });
+        }
+    </script>
+</body>
+</html>
