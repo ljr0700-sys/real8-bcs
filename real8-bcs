@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Real8 Platform</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+</head>
+<body style="background-color: #121212; color: white; text-align: center; padding-top: 50px;">
+    <div id="login-page">
+        <h1>Real8 플랫폼</h1>
+        <button onclick="googleLogin()" style="padding: 15px 30px; cursor: pointer; font-weight: bold;">Google 계정으로 로그인</button>
+    </div>
+    <div id="main-page" style="display: none;">
+        <h1 id="user-name">환영합니다!</h1>
+        <p>로그인에 성공하셨습니다.</p>
+    </div>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDPDh41Coju7dojq3ATISTxJDIiypx8eA0",
+            authDomain: "real8-platform-8527b.firebaseapp.com",
+            projectId: "real8-platform-8527b",
+            storageBucket: "real8-platform-8527b.appspot.com",
+            messagingSenderId: "268345819156",
+            appId: "1:268345819156:web:b017ad50d8d4e06f029001"
+        };
+        firebase.initializeApp(firebaseConfig);
+        function googleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('main-page').style.display = 'block';
+                document.getElementById('user-name').innerText = result.user.displayName + "님 환영합니다!";
+            }).catch((e) => alert("인증 오류: " + e.message));
+        }
+    </script>
+</body>
+</html>
