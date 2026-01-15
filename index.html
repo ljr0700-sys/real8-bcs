@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Real8 Platform</title>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <style>
+        body { background-color: #121212; color: white; text-align: center; padding-top: 100px; font-family: sans-serif; }
+        .login-box { background: #1e1e1e; padding: 40px; border-radius: 20px; display: inline-block; border: 1px solid #333; }
+        .btn { padding: 15px 30px; font-size: 18px; cursor: pointer; border-radius: 10px; border: none; font-weight: bold; background: #fff; color: #000; }
+    </style>
+</head>
+<body>
+    <div id="login-page" class="login-box">
+        <h1>Real8 플랫폼</h1>
+        <p>안전한 접속을 위해 로그인이 필요합니다.</p>
+        <button class="btn" onclick="googleLogin()">Google 계정으로 로그인</button>
+    </div>
+    <div id="main-page" style="display:none;">
+        <h1 id="welcome">환영합니다!</h1>
+        <p>부동산 디지털 대장에 성공적으로 접속되었습니다.</p>
+    </div>
+
+    <script>
+        // 정린님의 Firebase 정보를 완벽하게 맞춘 설정값입니다.
+        const firebaseConfig = {
+            apiKey: "AIzaSyDPDh41Coju7dojq3ATISTxJDIiypx8eA0",
+            authDomain: "real8-platform-8527b.firebaseapp.com",
+            projectId: "real8-platform-8527b",
+            storageBucket: "real8-platform-8527b.appspot.com",
+            messagingSenderId: "268345819156",
+            appId: "1:268345819156:web:b017ad50d8d4e06f029001"
+        };
+        firebase.initializeApp(firebaseConfig);
+
+        function googleLogin() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider).then((result) => {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('main-page').style.display = 'block';
+                document.getElementById('welcome').innerText = result.user.displayName + "님, 환영합니다!";
+            }).catch((error) => {
+                alert("인증 실패: 번역 기능을 끄고 코드를 다시 저장해 보세요.");
+            });
+        }
+    </script>
+</body>
+</html>
