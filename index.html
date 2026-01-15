@@ -2,12 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <title>Real8 Platform</title>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 </head>
 <body style="background-color: #121212; color: white; text-align: center; padding-top: 100px;">
-    <h1>Real8 플랫폼</h1>
-    <button onclick="login()" style="padding: 15px 30px; cursor: pointer; font-weight: bold;">Google 로그인</button>
+    <div id="login-page">
+        <h1>Real8 플랫폼</h1>
+        <button onclick="login()" style="padding: 15px 30px; cursor: pointer; font-weight: bold;">Google 로그인</button>
+    </div>
+    <div id="main-page" style="display:none;">
+        <h1 id="user">환영합니다!</h1>
+    </div>
     <script>
         const config = {
             apiKey: "AIzaSyDPDh41Coju7dojq3ATISTxJDIiypx8eA0",
@@ -20,9 +26,11 @@
         firebase.initializeApp(config);
         function login() {
             const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider)
-                .then((res) => { alert(res.user.displayName + "님, 드디어 성공입니다!"); })
-                .catch((err) => { alert("오류 발생: " + err.message); });
+            firebase.auth().signInWithPopup(provider).then((res) => {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('main-page').style.display = 'block';
+                document.getElementById('user').innerText = res.user.displayName + "님, 환영합니다!";
+            }).catch((err) => { alert("오류: " + err.message); });
         }
     </script>
 </body>
